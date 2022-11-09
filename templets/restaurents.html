@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} restaurents {% endblock %}
+
+{% block content %}
+{% if user.id not in cust %}
+    <h1>You are not authorised</h1>
+    {% else %}
+<h1>Our Restaurents</h1>
+<section>
+    <div class="container">
+    <div class="section-heading d-flex align-items-center">
+    <div class="row">
+    {% for res in res_list %}
+    <div class="col-lg-3 col-md-6 col-sm-12 d-flex flex-wrap" style="border: dotted 2px; margin: 3.5%;">
+    <div>
+    <div>
+    <div class="courses-img-main">
+    <img src="{{res.LOGO.url}}" alt="" class="img-fluid w-100">
+    </div>
+    </div>
+    <h3 class="mb-0">{{res.REST_NAME}}</h3>
+    <p class="mb-1" style="font-size: 20px;">{{res.REST_ADD}}</p>
+    {% if res.NON_VEG %}
+    <img src="{% static 'img/nonveg.jpg' %}" width="20" height="20" alt="non-veg">
+    {% else %}
+    <img src="{% static 'img/veg.jpg' %}" width="20" height="20" alt="veg">
+    {% endif %}
+    <div class="d-flex flex-row bd-highlight">
+    <div class="p-2 bd-highlight">
+        <h4 class="mb-0">₹ {{res.COMMISSION}}0</h4>
+        <p class="mb-1" style="font-size: 10px;">Approx for one</p>
+    </div>
+    <div class="p-2 bd-highlight"></div>
+    <div class="p-2 bd-highlight"></div>
+    <div class="p-2 bd-highlight"></div>
+    <div class="p-2 bd-highlight"></div>
+    <div class="p-2 bd-highlight">
+        {% if user.is_authenticated %}
+            <a href="{% url 'menu' res.REST_ID_id %}" type="button" class="btn btn-outline-dark ">Order</a>
+        {% else %}
+            <a href="{% url 'login' %}" type="button" class="btn btn-outline-dark ">Order</a>
+        {% endif %}
+    </div>
+    </div>
+    </div>
+    </div>
+    {% endfor %}
+    </div>
+    </div>
+    </div>
+    </section>
+    {% endif %}
+{% endblock %}

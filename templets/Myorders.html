@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} My orders {% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+{% if user.id in cust %}
+    <h1>Your Orders</h1>
+    <br>
+    {% for b in bills %}
+
+    {% if user.id is b.TO.CUST_ID_id %}
+
+
+    <h2>Bill ID: {{b.id}}</h2>
+    <h4>From {{b.FROM.REST_NAME}} ({{b.FROM.REST_PH}})</h4>
+    <br>
+    <h6>By {{b.BY.DEL_NAME}} ({{b.BY.DEL_PH}})</h6>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Amount(₹)</th>
+        </tr>
+        {% for o in ord_list %}
+        {% if b.id is o.BILL_id %}
+        <tr>
+            <td>{{o.ITEM}}</td>
+            <td>{{o.ITEM.RATE}}</td>
+            <td>{{o.QUNTY}}</td>
+            <td>{{o.PRICE}}</td>
+        </tr>
+        {% endif %}  
+        {% endfor %}
+        <tfoot>
+            <th colspan="2"></th>
+            <th>Status</th>
+            <th>{{b.STATUS}}</th>
+        </tfoot>  
+        <tfoot>
+            <th colspan="2"></th>
+            <th>Total</th>
+            <th>₹{{b.TOTAL}}</th>
+        </tfoot>  
+    </table>
+    <br>
+
+    {% endif %}
+
+    {% endfor %}
+
+    {% else %}
+    <h1>You are not authorised</h1>
+    {% endif %}
+{% else %}
+<h1>Hey this is forbidden lets get back <a href="{% url 'index' %}">home</a></h1>
+{% endif %}
+
+{% endblock %}

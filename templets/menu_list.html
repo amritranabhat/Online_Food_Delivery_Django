@@ -1,0 +1,105 @@
+{% extends 'base2.html' %}
+
+{% load static %}
+
+{% block title %} menu_list {% endblock %}
+
+{% block content %}
+
+<h1>Menu</h1>
+<br>
+<div class="modal-header">
+
+<div class="center">
+</div>
+<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#AddStu">
+    Add Item
+</button>
+</div>
+<table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Image</th>
+        <th scope="col">Description</th>
+        <th scope="col">Cusine</th>
+        <th scope="col">Type</th>
+        <th scope="col">Non-Veg</th>
+        <th scope="col">Cost</th>
+        <th scope="col" colspan="2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+        
+      {% for m in menu %}
+      {% if user.id is m.REST_ID_id %}  
+      <tr>
+        <td>{{m.NAME}}</td>
+        <td><img src="{{m.IMG.url}}" width="50"></td>
+        <td>{{m.DESC}}</td>
+        <td>{{m.CUSINE}}</td>
+        <td>{{m.TYPE}}</td>
+        <td>
+            {% if m.NON_VEG %}
+            Yes
+            {% else %}
+            No
+            {% endif %}
+        </td>
+        <td>{{m.RATE}}</td>
+        <td>
+          <a href="{% url 'update' m.id %}" class="btn btn-warning btn-sm">Edit</a>
+        </td>
+        <td>
+          <a href="{% url 'del' m.id %}" class="btn btn-danger btn-sm">Delete</a>
+      </td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+    </tbody>
+</table>
+
+
+<!-- Pop up form -->
+<div class="modal fade" id="AddStu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Enter Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <form action="" method="POST">
+
+            {% csrf_token %}
+            <div class="mb-3">
+            <input type="text" value="{{user.id}}" hidden name="rid">
+            <label class="form-label">Name</label>
+            <input type="text" name="Name" class="form-control">
+            <label for="formFile" class="form-label">Image</label>
+            <input class="form-control" type="file" id="formFile" name="img">
+            <label class="form-label">Description</label>
+            <input type="text" name="desc" class="form-control">
+            <label class="form-label">Cusine</label>
+            <input type="text" name="Cusine" class="form-control">
+            <label class="form-label">Type</label>
+            <input type="text" name="type" class="form-control">
+            <label class="form-label">Non-veg</label>
+            <input type="checkbox" name="nonveg">
+            <br>
+            <label class="form-label">Cost</label>
+            <input type="number" name="cost" class="form-control">
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

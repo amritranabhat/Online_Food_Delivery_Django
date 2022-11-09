@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} register {% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h1>Hahaha nice joke to register again. But you are already using an account</h1>
+{% else %}
+    <form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label">User name</label>
+      <input type="text" name="username" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input type="password" name="password1" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+        <input type="password" name="password2" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label class="form-label" >Name</label>
+      <input type="text" name="name" class="form-control" value="{{u.CUST_NAME}}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Phone</label>
+        <input type="text" name="ph" class="form-control" value="{{u.CUST_PH}}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" >Email</label>
+        <input type="email" name="mail" class="form-control" value="{{u.CUST_MAIL}}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Gender</label>
+        <select class="form-select" name="gender" aria-label="Default select example" value="{{u.CUST_GEN}}">
+            <option value="M">M</option>
+            <option value="F">F</option>
+        </select>
+    </div>
+    <label class="form-label"><strong>Address</strong></label>
+    <div class="col-md-6">
+        <label class="form-label">Door Number</label>
+        <input type="text" class="form-control" name="dnum">
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Street Number</label>
+        <input type="text" class="form-control" name="snum">
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Location</label>
+        <input type="text" class="form-control" name="loc">
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">City</label>
+        <input type="text" class="form-control" name="city">
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Pin Code</label>
+        <input type="text" class="form-control" name="pin">
+    </div>
+    <br/>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endif %}
+{% endblock %}

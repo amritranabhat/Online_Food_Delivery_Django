@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load cart %}
+
+{% block title %} Bill {% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+{% if user.id in cust %}
+<form method="POST">
+    {% csrf_token %}
+    <h1>Bill</h1>
+    <h4>From {{rest_id.REST_NAME}}</h4>
+    <br>
+    <table class="table">
+        <tr>
+            <th>Sl. no</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Amount(₹)</th>
+        </tr>
+        {% for o in orders %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{o.NAME}}</td>
+            <td>{{o.RATE}}</td>
+            <td>{{o.id | cart_count:request.session.cart}}</td>
+            <td>{{o | dish_amt:request.session.cart}}</td>
+        </tr>  
+        {% endfor %}
+        <tfoot>
+            <th colspan="3"></th>
+            <th>Net Payable</th>
+            <th>₹{{orders | cart_total:request.session.cart}}</th>
+        </tfoot>    
+    </table>
+    <br>
+    <input type="number" value="{{orders | cart_total:request.session.cart}}" name="total" hidden>
+    <input type="text" value="{{rest_id.REST_ID_id}}" name="from" hidden>
+    <input type="text" value="{{user.id}}" name="to" hidden>
+    <label>Payment type</label>
+    <select class="form-select" name="pay" aria-label="Default select example">
+        <option value="Credit Card">Credit Card</option>
+        <option value="Debit Card">Debit Card</option>
+        <option value="UPI">UPI</option>
+        <option value="COD">COD (cash on delivery)</option>
+    </select>
+    <br>
+    <div align="right">
+        <button type="submit" class="btn btn-warning">Pay</button>
+    </div>
+</form>
+{% else %}
+<h1>You are not authorised</h1>
+{% endif %}
+{% else %}
+    <h1>Hey this is forbidden lets get back <a href="{% url 'index' %}">home</a></h1>
+{% endif %}
+
+{% endblock %}

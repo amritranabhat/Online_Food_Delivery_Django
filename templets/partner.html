@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} patner with us {% endblock %}
+
+{% block content %}
+
+    <h1 style="color: rgb(245, 108, 108);"> Partner with Us </h1>
+    <div class="d-flex flex-row bd-highlight mb-3">
+        <div class="p-2 bd-highlight"><img src="{% static 'img/banner.png' %}" width="400"></div>
+        <div class="p-2 bd-highlight"></div>
+        <div class="p-2 bd-highlight"></div>
+        <div class="p-2 bd-highlight">
+            <h1 class="display-3" align='center'>You Cook We Give!!!</h1>
+            <br/>
+            <h2>Let your taste reach vast number of People</h2>
+            <br/>
+            <p class="fs-5">HOME DELIVERY enables you to get 60% more revenue, 10x new customers and boost your brand visibility by providing insights to improve your business.</p>
+            <br/>
+        </div>
+    </div>
+    <p>Contact us by calling <strong>9898989878</strong> or mail us at <strong>partner.us@homedelivery.com</strong> to join with us</p>
+
+{% endblock %}

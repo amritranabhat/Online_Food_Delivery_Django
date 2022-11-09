@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} restaurents {% endblock %}
+
+{% block content %}
+
+    <h1 style="color: rgb(245, 108, 108);"> Job Opportunities from Us</h1>
+    <div class="d-flex flex-row bd-highlight mb-3">
+        <div class="p-2 bd-highlight"><img src="{% static 'img/delbanner.jfif' %}" width="400"></div>
+        <div class="p-2 bd-highlight"></div>
+        <div class="p-2 bd-highlight"></div>
+        <div class="p-2 bd-highlight">
+            <h1 class="display-3" align='center'>Just Drive</h1>
+            <br/>
+            <h2>Restaurants cook, Customers eat, You deliver happiness</h2>
+            <br/>
+            <p class="fs-5">Our delivery fleet saves considerable effort on your part resulting in more fulfilled orders for you. Also, we have now become much easier for customers to discover our brand on Home Delivery. You can become a part of that fleet</p>
+            <br/>
+        </div>
+    </div>
+    <p>Contact us by calling <strong>9898989878</strong> or mail us at <strong>job.opportunuty@homedelivery.com</strong> to join with us</p>
+
+{% endblock %}

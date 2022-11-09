@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} home {% endblock %}
+
+{% block content %}
+    <div class="d-flex flex-row bd-highlight mb-3">
+        <div class="p-2 bd-highlight"><img src="{% static 'img/eat.png' %}" width="400"></div>
+        <div class="p-2 bd-highlight"></div>
+        <div class="p-2 bd-highlight"></div>
+        <div class="p-2 bd-highlight">
+            <h1 class="display-3" align='center' style="color: rgb(233, 68, 68);">Feeling Hungry?</h1>
+            <br/>
+            <h2>Let's find something delicious for you.</h2>
+            <br/>
+            <p class="fs-5">Check out all our restaurents and order from wherever you wish and whatever you wish. At the comfort of your home. We "HOME DELIVERY" will get it to you.</p>
+            <br/>
+            {% if user.is_authenticated %}
+            <a href="{% url 'restaurents' %}" type="button" class="btn btn-danger">Let's Eat</a>
+            {% else %}
+            <a href="{% url 'login' %}" type="button" class="btn btn-danger">Let's Eat</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

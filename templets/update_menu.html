@@ -1,0 +1,38 @@
+{% extends 'base2.html' %}
+
+{% load static %}
+
+{% block title %} menu Updation {% endblock %}
+
+{% block content %}
+
+<div class="modal-body">
+        
+    <form action="" method="POST">
+
+        {% csrf_token %}
+        <div class="mb-3">
+        <input type="text" value="{{user.id}}" hidden name="rid">
+        <label class="form-label">Name</label>
+        <input type="text" name="Name" class="form-control" value="{{m.NAME}}">
+        <label for="formFile" class="form-label">Image</label>
+        <input class="form-control" type="file" id="formFile" name="img" value="{{m.IMG.url}}">
+        <label class="form-label">Description</label>
+        <input type="text" name="desc" class="form-control" value='{{m.DESC}}'>
+        <label class="form-label">Cusine</label>
+        <input type="text" name="Cusine" class="form-control" value="{{m.CUSINE}}">
+        <label class="form-label">Type</label>
+        <input type="text" name="type" class="form-control" value="{{m.TYPE}}">
+        <label class="form-label">Non-veg</label>
+        <input type="checkbox" name="nonveg" value="{{m.NON_VEG}}">
+        <br>
+        <label class="form-label">Cost</label>
+        <input type="number" name="cost" class="form-control" value="{{m.RATE}}">
+        </div>
+
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} order_confirmed {% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <h1>Order confirmed</h1>
+    <br>
+    <h6>Our chefs started to cook</h6>
+    <br>
+    <img src="{% static 'img/cooking.png' %}" height="250" align='center'>
+    <br>
+    <br>
+    <h3>Delivered by:</h3>
+    <h5>Name: {{del_guy.DEL_NAME}}</h5>
+    <h5>Phone: {{del_guy.DEL_PH}}</h5>
+    <a href="{% url 'restaurents' %}">check our other restaurents</a>
+{% else %}
+    <h1>Hey this is forbidden lets get back <a href="{% url 'index' %}">home</a></h1>
+{% endif %}
+
+{% endblock %}

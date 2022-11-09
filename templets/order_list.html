@@ -1,0 +1,65 @@
+{% extends 'base2.html' %}
+
+{% load static %}
+
+{% block title %} Orders {% endblock %}
+
+{% block content %}
+
+<h1>Your Orders</h1>
+    <br>
+    {% for b in bills %}
+
+    {% if user.id is b.FROM.REST_ID_id %}
+
+
+    <h2>Bill ID: {{b.id}}</h2>
+    <h4>To {{b.TO.CUST_NAME}} ({{b.TO.CUST_PH}})</h4>
+    <br>
+    <h6>By {{b.BY.DEL_NAME}} ({{b.BY.DEL_PH}})</h6>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Amount(₹)</th>
+        </tr>
+        {% for o in ord_list %}
+        {% if b.id is o.BILL_id %}
+        <tr>
+            <td>{{o.ITEM}}</td>
+            <td>{{o.ITEM.RATE}}</td>
+            <td>{{o.QUNTY}}</td>
+            <td>{{o.PRICE}}</td>
+        </tr>
+        {% endif %}  
+        {% endfor %}
+        <tfoot>
+            <th colspan="2"></th>
+            <th>Status</th>
+            <th>
+                {{b.STATUS}}
+                {% if b.STATUS in Ord %}
+                <br>
+                <form method='POST'>
+                    {% csrf_token %}
+                    <input type="text" value="{{b.id}}" name="bid" hidden>
+                    <button type="submit" class="btn btn-secondary">Dispach</button>
+                </form>
+                {% endif %}
+            </th>
+        </tfoot>  
+        <tfoot>
+            <th colspan="2"></th>
+            <th>Total</th>
+            <th>₹{{b.TOTAL}}</th>
+        </tfoot>  
+    </table>
+    <br>
+
+    {% endif %}
+
+    {% endfor %}
+
+
+{% endblock %}
